@@ -2,7 +2,7 @@ console.log("Welcome to Spotify");
 
 // Initialize the variables
 let songIndex = 0;
-let audioElement = new Audio('1.mp3');
+let audioElement = new Audio('songs/1.mp3');
 let masterPlay = document.getElementById('masterPlay');
 let myProgressBar = document.getElementById('myProgressBar');
 let gif = document.getElementById('gif');
@@ -11,16 +11,16 @@ let songItems = Array.from(document.getElementsByClassName('songItem'));
 
 
 let songs = [
-  {songName: "song1", filepath:"1.mp3" ,coverPath: "covers/1.jpg" },
-  {songName: "song2", filepath:"2.mp3" ,coverPath: "covers/2.jpg" },
-  {songName: "song3", filepath:"3.mp3" ,coverPath: "covers/3.jpg" },
-  {songName: "song4", filepath:"4.mp3" ,coverPath: "covers/4.jpg" },
-  {songName: "song5", filepath:"5.mp3" ,coverPath: "covers/5.jpg" },
-  {songName: "song6", filepath:"6.mp3" ,coverPath: "covers/6.jpg" },
-  {songName: "song7", filepath:"7.mp3" ,coverPath: "covers/7.jpg" },
-  {songName: "song8", filepath:"8.mp3" ,coverPath: "covers/8.jpg" },
-  {songName: "song9", filepath:"9.mp3" ,coverPath: "covers/9.jpg" },
-  {songName: "song10", filepath:"10.mp3" ,coverPath: "covers/10.jpg" }
+  {songName: "song1", filepath:"songs/1.mp3" ,coverPath: "covers/1.jpg" },
+  {songName: "song2", filepath:"songs/2.mp3" ,coverPath: "covers/2.jpg" },
+  {songName: "song3", filepath:"songs/3.mp3" ,coverPath: "covers/3.jpg" },
+  {songName: "song4", filepath:"songs/4.mp3" ,coverPath: "covers/4.jpg" },
+  {songName: "song5", filepath:"songs/5.mp3" ,coverPath: "covers/5.jpg" },
+  {songName: "song6", filepath:"songs/6.mp3" ,coverPath: "covers/6.jpg" },
+  {songName: "song7", filepath:"songs/7.mp3" ,coverPath: "covers/7.jpg" },
+  {songName: "song8", filepath:"songs/8.mp3" ,coverPath: "covers/8.jpg" },
+  {songName: "song9", filepath:"songs/9.mp3" ,coverPath: "covers/9.jpg" },
+  {songName: "song10", filepath:"songs/10.mp3" ,coverPath: "covers/10.jpg" }
 ]
 
 songItems.forEach((element,i)=>{
@@ -48,7 +48,9 @@ masterPlay.addEventListener('click',()=>{
 //Listen to Events
 audioElement.addEventListener('timeupdate',()=>{
   //update seekbar
+if(!isNaN(audioElement.duration)){
   progress = parseInt((audioElement.currentTime/audioElement.duration)*100);
+}
   myProgressBar.value = progress;
 })
 
@@ -71,7 +73,7 @@ Array.from(document.getElementsByClassName('songItemPlay')).forEach((element)=>{
     songIndex = parseInt(e.target.id);
     e.target.classList.remove('fa-circle-play');
     e.target.classList.add('fa-circle-pause');
-    audioElement.src = `${songIndex + 1}.mp3`;
+    audioElement.src = `songs/${songIndex + 1}.mp3`;
     masterSongName.innerText = songs[songIndex].songName;
     audioElement.currentTime = 0;
     audioElement.play();
@@ -88,7 +90,7 @@ document.getElementById('next').addEventListener('click',()=>{
   else{
     songIndex += 1;
   }
-  audioElement.src = `${songIndex + 1}.mp3`;
+  audioElement.src = `songs/${songIndex + 1}.mp3`;
   masterSongName.innerText = songs[songIndex].songName;
     audioElement.currentTime = 0;
     audioElement.play();
@@ -103,10 +105,14 @@ document.getElementById('previous').addEventListener('click',()=>{
   else{
     songIndex -= 1;
   }
-  audioElement.src = `${songIndex + 1}.mp3`;
+  audioElement.src = `songs/${songIndex + 1}.mp3`;
   masterSongName.innerText = songs[songIndex].songName;
     audioElement.currentTime = 0;
     audioElement.play();
     masterPlay.classList.remove('fa-circle-play');
     masterPlay.classList.add('fa-circle-pause');
 })
+
+audioElement.addEventListener('ended',()=>{
+  document.getElementById('next').click();
+});
