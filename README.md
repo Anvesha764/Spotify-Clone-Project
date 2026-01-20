@@ -6,7 +6,7 @@ This project focuses on front-end UI design and basic audio playback using the J
 ---
 
 ## 🚀 Live Demo
-https://Anvesha764.github.io/spotify-clone/
+https://anvesha764.github.io/Spotify-Clone-Project/
 
 ---
 
